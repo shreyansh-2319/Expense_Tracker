@@ -1,0 +1,44 @@
+package miniAssessment.AuthService.config;
+
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import miniAssessment.AuthService.service.JwtService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Component;
+import org.springframework.web.filter.OncePerRequestFilter;
+import miniAssessment.AuthService.model.Users;
+import miniAssessment.AuthService.repo.AuthRepo;
+
+import java.io.IOException;
+import java.util.ArrayList;
+
+@Component
+public class JwtFilter extends OncePerRequestFilter {
+    @Autowired
+    private JwtService jwtService;
+    @Autowired
+    private AuthRepo repo;
+
+    @Override
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+        String authHeader= request.getHeader("Authorization");
+        String token=null;
+        String email=null;
+        if(authHeader!=null && authHeader.startsWith("Bearer ")){
+            token=authHeader.substring(7);
+            email=jwtService.extractEmail(token);
+            if(email!=null)
+            {
+                Users user=repo.findByEmail(email);
+                UsernamePasswordAuthenticationToken auth=new UsernamePasswordAuthenticationToken(user,null,new ArrayList<>());
+                SecurityContextHolder.getContext().setAuthentication(auth);
+            }
+        }
+        filterChain.doFilter(request,response);
+    }
+}
