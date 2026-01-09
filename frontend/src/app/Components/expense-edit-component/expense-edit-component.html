@@ -1,0 +1,19 @@
+<div class="expense-form-container">
+  <h2>Edit Expense</h2>
+  <form (ngSubmit)="updateExpense(expenseForm)" #expenseForm="ngForm">
+    <label>Date:</label>
+    <input type="date" name="date" [(ngModel)]="date" required />
+
+    <label>Category:</label>
+    <input type="text" name="category" [(ngModel)]="category" required placeholder="e.g., Food, Transport" />
+
+    <label>Description:</label>
+    <input type="text" name="description" [(ngModel)]="description" required placeholder="Description..." />
+
+    <label>Amount:</label>
+    <input type="number" name="amount" [(ngModel)]="amount" required min="0.01" step="0.01" placeholder="0.00" />
+
+    <button type="submit" [disabled]="expenseForm.invalid">Update Expense</button>
+    <button type="button" class="cancel-btn" routerLink="/expenses">Cancel</button>
+  </form>
+</div>

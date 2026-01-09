@@ -1,0 +1,47 @@
+.welcome-container {
+  text-align: center;
+  margin: 100px auto;
+  max-width: 500px;
+  padding: 40px;
+}
+
+.welcome-container h1 {
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.welcome-container p {
+  font-size: 1.2rem;
+  color: #666;
+  margin-bottom: 40px;
+}
+
+.welcome-container .buttons {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+.welcome-container button {
+  padding: 15px 30px;
+  font-size: 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.welcome-container button:first-child {
+  background-color: #007bff;
+  color: white;
+}
+
+.welcome-container button:last-child {
+  background-color: #28a745;
+  color: white;
+}
+
+.welcome-container button:hover {
+  opacity: 0.9;
+}

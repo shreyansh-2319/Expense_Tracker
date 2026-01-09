@@ -1,0 +1,12 @@
+<div class="auth-container">
+    <ng-container *ngIf="showLogin">
+        <form (ngSubmit)="login(logForm)" #logForm="ngForm">
+            <h2>Login</h2>
+            <input type="email" name="email" [(ngModel)]="email" required pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" placeholder="Email..."/>
+            <input type="password" name="password" [(ngModel)]="password" required placeholder="Password..."/>
+            <button type="submit" [disabled]="logForm.invalid">Login</button>
+            <p class="line">Not Registered? <a routerLink="/register" class="line"><span>Register</span></a></p>
+        </form>
+    </ng-container>
+    
+</div>

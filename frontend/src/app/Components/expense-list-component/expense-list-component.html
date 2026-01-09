@@ -1,0 +1,47 @@
+<div class="expense-list-container">
+  <div class="header">
+    <h2>My Expenses</h2>
+    <button class="add-btn" routerLink="/expenses/add">+ Add Expense</button>
+  </div>
+
+  <div class="filter-section">
+    <h3>Filter by Date Range</h3>
+    <div class="date-inputs">
+      <input type="date" [(ngModel)]="startDate" placeholder="Start Date" />
+      <input type="date" [(ngModel)]="endDate" placeholder="End Date" />
+      <button class="filter-btn" (click)="filterByDateRange()">Get Total</button>
+    </div>
+    <div *ngIf="showTotal" class="total-display">
+      <p><strong>Total Amount:</strong> ₹{{ totalAmount }}</p>
+      <p><strong>Number of Expenses:</strong> {{ expenseCount }}</p>
+    </div>
+  </div>
+
+  <div *ngIf="expenses.length === 0" class="no-expenses">
+    <p>No expenses found. Start by adding one!</p>
+  </div>
+
+  <table *ngIf="expenses.length > 0">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Category</th>
+        <th>Description</th>
+        <th>Amount</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let expense of expenses">
+        <td>{{ expense.date | date:'dd/MM/yyyy' }}</td>
+        <td>{{ expense.category }}</td>
+        <td>{{ expense.description }}</td>
+        <td>₹{{ expense.amount }}</td>
+        <td>
+          <button class="edit-btn" (click)="editExpense(expense.id)">Edit</button>
+          <button class="delete-btn" (click)="deleteExpense(expense.id)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
