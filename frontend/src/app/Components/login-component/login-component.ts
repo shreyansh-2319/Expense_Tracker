@@ -22,7 +22,7 @@ export class LoginComponent {
           this.userService.storeToken(token);
           alert('Login successful!');
           form.reset();
-          this.router.navigate(['/expenses']);
+          this.router.navigate(['/home']);
         },error:(err)=>{
           console.error('Login error:',err);
           alert('Login failed. Please check your credentials.');

@@ -4,10 +4,13 @@ import { RegisterComponent } from './Components/register-component/register-comp
 import { ExpenseFormComponent } from './Components/expense-form-component/expense-form-component';
 import { ExpenseListComponent } from './Components/expense-list-component/expense-list-component';
 import { ExpenseEditComponent } from './Components/expense-edit-component/expense-edit-component';
+import { HomeComponent } from './Components/home-component/home-component';
 
 export const routes: Routes = [
+    { path: '', redirectTo: '/login', pathMatch: 'full' },
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
+    { path: 'home', component: HomeComponent },
     { path: 'expenses', component: ExpenseListComponent },
     { path: 'expenses/add', component: ExpenseFormComponent },
     { path: 'expenses/update/:id', component: ExpenseEditComponent }

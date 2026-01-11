@@ -7,7 +7,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.PrePersist;
 import java.sql.Timestamp;
 import jakarta.validation.constraints.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

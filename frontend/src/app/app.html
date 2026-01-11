@@ -1,9 +1,19 @@
-<div class="welcome-container">
+<div *ngIf="!isLoggedIn()" class="welcome-container">
   <h1>Welcome to Expense Tracker</h1>
   <p>Track your expenses easily and efficiently</p>
   <div class="buttons">
     <button routerLink="/login">Login</button>
     <button routerLink="/register">Register</button>
+  </div>
+</div>
+
+<div *ngIf="isLoggedIn()" class="logged-in-header">
+  <h1>Expense Tracker</h1>
+  <div class="nav-buttons">
+    <button routerLink="/home">Home</button>
+    <button routerLink="/expenses">My Expenses</button>
+    <button routerLink="/expenses/add">Add Expense</button>
+    <button class="logout-btn" (click)="logout()">Logout</button>
   </div>
 </div>
 
