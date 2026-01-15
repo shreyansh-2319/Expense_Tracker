@@ -39,22 +39,15 @@ public class ExpenseController {
     @PutMapping("/update/{id}")
     public ResponseEntity<Expenses> updateExpense(@Valid @RequestBody Expenses expense, @PathVariable UUID id, Authentication authentication ){
         UUID userId=UUID.fromString((String) authentication.getPrincipal());
-        try{
-            Expenses updated= service.updateExpense(id,expense,userId);
-            return ResponseEntity.ok(updated);
-        }catch (RuntimeException e){
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-    }}
+        Expenses updated= service.updateExpense(id,expense,userId);
+        return ResponseEntity.ok(updated);
+    }
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> deleteExpense(@PathVariable UUID id, Authentication authentication){
+    public ResponseEntity<Void> deleteExpense(@PathVariable UUID id, Authentication authentication){
         UUID userId=UUID.fromString((String) authentication.getPrincipal());
-        try{
-            service.deleteExpense(id,userId);
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-        } catch(RuntimeException e){
-        return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body(e.getMessage());
-    }}
+        service.deleteExpense(id,userId);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
     @GetMapping("/{id}")
     public ResponseEntity<Expenses> getExpenseById(@PathVariable UUID id, Authentication authentication) {
         UUID userId = UUID.fromString((String) authentication.getPrincipal());
@@ -74,16 +67,12 @@ public class ExpenseController {
     public ResponseEntity<Map<String, Object>> getTotalByDateRange(
             @RequestParam String startDate,
             @RequestParam String endDate,
-            Authentication authentication) {
+            Authentication authentication) throws Exception {
         UUID userId = UUID.fromString((String) authentication.getPrincipal());
-        try {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            Date start = sdf.parse(startDate);
-            Date end = sdf.parse(endDate);
-            return ResponseEntity.ok(service.getTotalByDateRange(userId, start, end));
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(Map.of("error", "Invalid date format. Use yyyy-MM-dd"));
-        }
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date start = sdf.parse(startDate);
+        Date end = sdf.parse(endDate);
+        return ResponseEntity.ok(service.getTotalByDateRange(userId, start, end));
     }
     @DeleteMapping("/internal/user/{userId}")
     public ResponseEntity<Void> deleteUserExpenses(@PathVariable UUID userId){
